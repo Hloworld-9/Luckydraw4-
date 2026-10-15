@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>सावित्री इलेक्ट्रॉनिक्स - लकी ड्रॉ एवं कैश वाउचर कार्ड</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Yatra+One&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+    <!-- QRious for Instant Client-Side QR Code Generation (Zero CORS issue) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <!-- html2canvas for Card Image Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- canvas-confetti for Lightweight Celebration -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --bg-top: #f59e0b;
+            --bg-mid: #ea580c;
+            --bg-pink: #be123c;
+            --bg-deep: #881337;
+            --maroon-dark: #2a0800;
+            --gold: #fde047;
+            --gold-deep: #d97706;
+            --bajaj-blue: #0072bc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #f59e0b 0%, #ea580c 34%, #dc2626 66%, #be123c 88%, #881337 100%);
+            min-height: 100vh;
+            color: #1e293b;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Lightweight Static Festive Mandala Watermark (Zero Lag on Mobile) */
+        .bg-watermark {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.14;
+            background-image: radial-gradient(circle at 50% 12%, rgba(253, 224, 71, 0.45) 0%, transparent 55%);
+        }
+
+        .toran-bar {
+            width: 100%;
+            max-width: 600px;
+            z-index: 2;
+            pointer-events: none;
+            margin-bottom: -8px;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 520px;
+            z-index: 2;
+            padding: 0 14px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Standee Style Top Header */
+        .brand-header {
+            text-align: center;
+            margin-top: 4px;
+            width: 100%;
+        }
+
+        .brand-title {
+            font-family: 'Yatra One', serif;
+            font-size: clamp(2.35rem, 8.5vw, 3.3rem);
+            line-height: 1.06;
+            color: #fffbeb;
+            letter-spacing: 0.5px;
+            text-shadow:
+                0 2px 0 #d97706,
+                0 4px 0 #92400e,
+                0 6px 0 #451a03,
+                0 10px 18px rgba(0,0,0,0.45);
+        }
+
+        .lucky-draw-pill {
+            display: inline-block;
+            background: linear-gradient(90deg, #4a0404, #7f1d1d, #4a0404);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: clamp(0.88rem, 3.2vw, 1.08rem);
+            letter-spacing: 1.2px;
+            padding: 5px 22px;
+            border-radius: 999px;
+            border: 1.5px solid #fbbf24;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin-top: 5px;
+        }
+
+        .finance-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffffff;
+            padding: 5px 16px;
+            border-radius: 999px;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            border: 1.5px solid #fde68a;
+        }
+
+        .finance-pill .fp-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #3f1d0b;
+            border-right: 1.5px solid #cbd5e1;
+            padding-right: 8px;
+        }
+
+        .bajaj-logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 800;
+            color: var(--bajaj-blue);
+            font-size: 0.82rem;
+            line-height: 1.05;
+        }
+
+        .bajaj-circle {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--bajaj-blue);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.72rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main White Container Card */
+        .ornamental-card {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 26px;
+            border: 4px solid #f59e0b;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+            padding: 20px 16px 22px;
+            margin-top: 14px;
+            position: relative;
+        }
+
+        .card-offer-header {
+            text-align: center;
+            border-bottom: 1.5px dashed #fed7aa;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-offer-header h2 {
+            font-size: clamp(1.1rem, 4.2vw, 1.38rem);
+            font-weight: 800;
+            color: #1e293b;
+        }
+
+        .free-coupon-headline {
+            font-size: clamp(1.6rem, 6.2vw, 2.2rem);
+            font-weight: 900;
+            color: #7f1d1d;
+            letter-spacing: 0.5px;
+            margin: 2px 0 6px;
+        }
+
+        .discount-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .discount-chip {
+            background: #fffbeb;
+            border: 1.5px solid #f59e0b;
+            color: #92400e;
+            font-weight: 700;
+            font-size: 0.74rem;
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        /* Login Section */
+        .login-box {
+            text-align: center;
+            padding: 10px 4px;
+        }
+
+        .login-box p {
+            font-size: 0.9rem;
+            color: #475569;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .btn-google-premium {
+            background: linear-gradient(90deg, #3b0707, #7f1d1d, #3b0707);
+            color: #ffffff;
+            border: 2px solid #fbbf24;
+            padding: 13px 20px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 18px rgba(127, 29, 29, 0.3);
+            transition: transform 0.15s ease;
+        }
+
+        .btn-google-premium:active {
+            transform: scale(0.98);
+        }
+
+        .google-icon-wrap {
+            background: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* User Strip */
+        .user-strip {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 10px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .user-strip-info {
+            font-size: 0.76rem;
+            color: #9a3412;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 72%;
+        }
+
+        .btn-logout {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Form Styling */
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .field-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+
+        .field-group label span.req {
+            color: #dc2626;
+        }
+
+        .input-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            color: #0f172a;
+            background: #f8fafc;
+        }
+
+        .input-control:focus {
+            outline: none;
+            border-color: #ea580c;
+            background: #ffffff;
+        }
+
+        .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 7px;
+        }
+
+        .interest-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            padding: 7px 9px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #431407;
+            cursor: pointer;
+        }
+
+        .interest-item input {
+            accent-color: #c2410c;
+            width: 15px;
+            height: 15px;
+        }
+
+        .row-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-submit-coupon {
+            background: linear-gradient(90deg, #3b0707, #7f1d1d, #3b0707);
+            color: #ffffff;
+            border: 2px solid #fbbf24;
+            padding: 13px 18px;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 4px;
+            box-shadow: 0 8px 16px rgba(127, 29, 29, 0.3);
+        }
+
+        .btn-submit-coupon:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .status-alert {
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .status-info { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+        .status-warn { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+
+        /* =========================================================
+           PREMIUM BANKNOTE / CASH PRIVILEGE CARD DESIGN (NO PERSONAL DETAILS)
+           ========================================================= */
+        .coupon-view-wrapper {
+            animation: fadeInCard 0.35s ease-out;
+        }
+
+        @keyframes fadeInCard {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .congrats-strip {
+            text-align: center;
+            background: #ecfdf5;
+            border: 1.5px solid #10b981;
+            border-radius: 12px;
+            padding: 9px 12px;
+            margin-bottom: 12px;
+        }
+
+        .congrats-strip h3 {
+            color: #065f46;
+            font-size: 0.96rem;
+            font-weight: 800;
+        }
+
+        .congrats-strip p {
+            color: #047857;
+            font-size: 0.74rem;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* Capture Target for Download */
+        #digital-coupon-card {
+            background: linear-gradient(135deg, #2b0505 0%, #4a0808 48%, #230404 100%);
+            border-radius: 18px;
+            padding: 4px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* Metallic Gold Inner Border like Currency / VIP Card */
+        .voucher-inner {
+            border: 2px solid #fbbf24;
+            border-radius: 14px;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(251, 191, 36, 0.16) 0%, transparent 45%),
+                radial-gradient(circle at 15% 80%, rgba(234, 88, 12, 0.18) 0%, transparent 50%),
+                linear-gradient(145deg, #3b0707 0%, #570a0a 52%, #2a0404 100%);
+            padding: 14px 14px 12px;
+            position: relative;
+        }
+
+        /* Top Row: Brand & Cash Value Seal */
+        .voucher-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            border-bottom: 1px dashed rgba(251, 191, 36, 0.45);
+            padding-bottom: 10px;
+        }
+
+        .voucher-brand-col .v-brand {
+            font-family: 'Yatra One', serif;
+            font-size: 1.4rem;
+            color: #fde047;
+            line-height: 1.1;
+            letter-spacing: 0.4px;
+        }
+
+        .voucher-brand-col .v-sub {
+            font-size: 0.68rem;
+            color: #fed7aa;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .cash-seal-badge {
+            background: linear-gradient(135deg, #fde047 0%, #f59e0b 100%);
+            color: #3b0707;
+            font-weight: 900;
+            font-size: 0.68rem;
+            padding: 4px 10px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+            white-space: nowrap;
+        }
+
+        /* Middle Section: Left = Value Offers | Right Corner = Scannable QR Code */
+        .voucher-mid-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+
+        .value-denominations {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .money-note-box {
+            background: linear-gradient(90deg, rgba(254, 243, 199, 0.98) 0%, rgba(253, 230, 138, 0.95) 100%);
+            border: 1.5px solid #f59e0b;
+            border-left: 5px solid #b91c1c;
+            border-radius: 10px;
+            padding: 7px 10px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+        }
+
+        .money-note-box .note-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .money-note-box .note-amount {
+            font-size: 1.22rem;
+            font-weight: 900;
+            color: #991b1b;
+            line-height: 1.05;
+        }
+
+        .money-note-box .note-cond {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #475569;
+            margin-top: 2px;
+        }
+
+        .money-note-box .note-tag {
+            background: #991b1b;
+            color: #fde047;
+            font-size: 0.62rem;
+            font-weight: 800;
+            padding: 3px 7px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        /* Corner QR Code Box */
+        .qr-corner-box {
+            background: #ffffff;
+            border: 2px solid #fde047;
+            border-radius: 12px;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+            width: 108px;
+            flex-shrink: 0;
+        }
+
+        #qr-canvas {
+            width: 92px;
+            height: 92px;
+            display: block;
+        }
+
+        .qr-caption {
+            font-size: 0.56rem;
+            font-weight: 800;
+            color: #1e293b;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-top: 3px;
+            text-align: center;
+        }
+
+        /* Lucky Draw & EMI Perk Strip */
+        .lucky-perk-strip {
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(253, 224, 71, 0.35);
+            border-radius: 9px;
+            padding: 7px 10px;
+            font-size: 0.7rem;
+            color: #fef3c7;
+            line-height: 1.45;
+            margin-bottom: 10px;
+        }
+
+        .lucky-perk-strip strong {
+            color: #fde047;
+        }
+
+        /* Serial No & 90-Day Validity Bar (Currency Style) */
+        .serial-validity-bar {
+            background: rgba(0, 0, 0, 0.42);
+            border: 1px solid rgba(251, 191, 36, 0.5);
+            border-radius: 9px;
+            padding: 8px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .serial-num-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .serial-num-block .s-lbl {
+            font-size: 0.58rem;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .serial-num-block .s-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.96rem;
+            font-weight: 800;
+            color: #fde047;
+            letter-spacing: 0.8px;
+        }
+
+        .validity-dates-block {
+            text-align: right;
+            font-size: 0.66rem;
+            line-height: 1.35;
+            color: #f8fafc;
+        }
+
+        .validity-pill-90 {
+            display: inline-block;
+            background: #16a34a;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.62rem;
+            padding: 1px 7px;
+            border-radius: 99px;
+            margin-bottom: 2px;
+        }
+
+        /* Bottom Store Address & Cash Value Note inside Card */
+        .voucher-footer {
+            border-top: 1px solid rgba(253, 224, 71, 0.3);
+            padding-top: 8px;
+            text-align: center;
+        }
+
+        .voucher-footer .v-store-addr {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .voucher-footer .v-store-phone {
+            font-size: 0.74rem;
+            font-weight: 800;
+            color: #fde047;
+            margin-top: 1px;
+        }
+
+        .voucher-footer .v-important-note {
+            font-size: 0.62rem;
+            color: #fed7aa;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* Download Button */
+        .coupon-actions {
+            margin-top: 12px;
+        }
+
+        .btn-download {
+            width: 100%;
+            background: linear-gradient(90deg, #15803d, #16a34a);
+            color: #fff;
+            border: none;
+            padding: 13px 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.92rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 6px 16px rgba(22, 163, 74, 0.32);
+        }
+
+        .btn-download:active {
+            transform: scale(0.99);
+        }
+
+        /* Standee Bottom Slogan & Footer */
+        .no-purchase-slogan {
+            color: #ffffff;
+            text-align: center;
+            font-size: clamp(0.88rem, 3.3vw, 1.04rem);
+            font-weight: 700;
+            margin-top: 14px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+        }
+
+        .bajaj-bottom-banner {
+            width: 100%;
+            max-width: 520px;
+            background: #ffffff;
+            border-top: 3px solid #fde047;
+            padding: 10px 14px;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .bajaj-bottom-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .bajaj-bottom-text {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #0f172a;
+            text-align: left;
+        }
+
+        .emi-highlight {
+            font-size: 0.76rem;
+            font-weight: 800;
+            color: #b91c1c;
+            margin-top: 4px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 4px;
+        }
+
+        .store-footer {
+            width: 100%;
+            max-width: 520px;
+            background: var(--maroon-dark);
+            color: #ffffff;
+            text-align: center;
+            padding: 12px 14px;
+            z-index: 2;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .store-footer .addr {
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .store-footer .phone {
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #fde047;
+            margin-top: 2px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 420px) {
+            .interest-grid, .row-2col {
+                grid-template-columns: 1fr;
+            }
+            .voucher-mid-grid {
+                grid-template-columns: 1fr 100px;
+                gap: 8px;
+            }
+            .qr-corner-box {
+                width: 98px;
+                padding: 5px;
+            }
+            #qr-canvas {
+                width: 84px;
+                height: 84px;
+            }
+            .money-note-box .note-amount {
+                font-size: 1.08rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-watermark"></div>
+
+    <!-- Top Marigold Garland SVG -->
+    <div class="toran-bar">
+        <svg viewBox="0 0 600 48" width="100%" height="auto">
+            <path d="M0,0 Q30,34 60,0 Q90,34 120,0 Q150,34 180,0 Q210,34 240,0 Q270,34 300,0 Q330,34 360,0 Q390,34 420,0 Q450,34 480,0 Q510,34 540,0 Q570,34 600,0" fill="none" stroke="#fbbf24" stroke-width="5" stroke-dasharray="9 4"/>
+            <circle cx="22" cy="14" r="6" fill="#f59e0b"/>
+            <circle cx="22" cy="27" r="6" fill="#ea580c"/>
+            <circle cx="578" cy="14" r="6" fill="#f59e0b"/>
+            <circle cx="578" cy="27" r="6" fill="#ea580c"/>
+        </svg>
+    </div>
+
+    <div class="main-wrapper">
+        <!-- Standee Top Brand Header -->
+        <div class="brand-header">
+            <h1 class="brand-title">सावित्री<br>इलेक्ट्रॉनिक्स</h1>
+            <div class="lucky-draw-pill">FREE LUCKY DRAW!</div>
+            <br>
+            <div class="finance-pill">
+                <span class="fp-label">फाइनेंस पार्टनर :</span>
+                <span class="bajaj-logo-badge">
+                    <span class="bajaj-circle">B</span>
+                    <span>BAJAJ<br>FINSERV</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Center White Card -->
+        <div class="ornamental-card">
+            <div class="card-offer-header">
+                <h2>हर महीने जीतें शानदार इनाम!</h2>
+                <div class="free-coupon-headline">✺ FREE COUPON! ✺</div>
+                <div class="discount-chips">
+                    <span class="discount-chip">💵 ₹10,000+ पर ₹500 छूट</span>
+                    <span class="discount-chip">💵 ₹20,000+ पर ₹1,000 छूट</span>
+                </div>
+            </div>
+
+            <!-- STEP 1: GOOGLE LOGIN -->
+            <div id="login-section" class="login-box">
+                <p>अपना मुफ़्त लकी ड्रॉ एवं कैश डिस्काउंट कार्ड पाने के लिए Gmail से लॉगिन करें:</p>
+                <button id="google-login-btn" class="btn-google-premium">
+                    <span class="google-icon-wrap">
+                        <svg width="18" height="18" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.2v3.15C3.18 21.35 7.23 24 12 24z"/>
+                            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.2C.44 8.12 0 9.87 0 11.7s.44 3.58 1.2 5.12l4.08-2.55z"/>
+                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.18 2.65 1.2 6.58l4.08 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                        </svg>
+                    </span>
+                    <span>मुफ्त कूपन कार्ड ले जाएं ►</span>
+                </button>
+            </div>
+
+            <!-- STEP 2: LOGGED IN CONTENT -->
+            <div id="auth-content-section" class="hidden">
+                <div class="user-strip">
+                    <div class="user-strip-info">
+                        <span>Gmail: </span>
+                        <strong id="user-email-display"></strong>
+                    </div>
+                    <button id="logout-btn" class="btn-logout">Logout</button>
+                </div>
+
+                <div id="status-message" class="status-alert hidden"></div>
+
+                <!-- CUSTOMER ENTRY FORM -->
+                <form id="lucky-draw-form" class="form-grid">
+                    <div class="field-group">
+                        <label>1. ग्राहक का पूरा नाम (Full Name) <span class="req">*</span></label>
+                        <input type="text" id="fullName" class="input-control" required placeholder="अपना पूरा नाम लिखें">
+                    </div>
+
+                    <div class="row-2col">
+                        <div class="field-group">
+                            <label>2. व्हाट्सएप / मोबाइल नं. <span class="req">*</span></label>
+                            <input type="tel" id="mobileNumber" class="input-control" pattern="[0-9]{10}" maxlength="10" required placeholder="10 अंकों का नंबर">
+                        </div>
+                        <div class="field-group">
+                            <label>3. गाँव / वार्ड / मोहल्ला <span class="req">*</span></label>
+                            <input type="text" id="address" class="input-control" required placeholder="जैसे: गोला वार्ड, रुद्रपुर">
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label>4. अगले 1–3 महीने में किस सामान की ज़रूरत है?</label>
+                        <div class="interest-grid">
+                            <label class="interest-item"><input type="checkbox" name="itemsNeeded" value="Smart LED TV"> Smart LED TV</label>
+                            <label class="interest-item"><input type="checkbox" name="itemsNeeded" value="Fridge"> Fridge (फ्रिज)</label>
+                            <label class="interest-item"><input type="checkbox" name="itemsNeeded" value="Washing Machine"> Washing Machine</label>
+                            <label class="interest-item"><input type="checkbox" name="itemsNeeded" value="AC / Cooler"> AC / Cooler</label>
+                            <label class="interest-item"><input type="checkbox" name="itemsNeeded" value="Shaadi Combo"> शादी/लगन कॉम्बो</label>
+                            <label class="interest-item"><input type="checkbox" name="itemsNeeded" value="Exchange"> सामान एक्सचेंज</label>
+                            <label class="interest-item"><input type="checkbox" name="itemsNeeded" value="Mixer / Fan / Other"> मिक्सर / पंखा / अन्य</label>
+                        </div>
+                    </div>
+
+                    <div class="row-2col">
+                        <div class="field-group">
+                            <label>5. शादी / गृह-प्रवेश कब है?</label>
+                            <input type="text" id="occasionDate" class="input-control" placeholder="महीना / तारीख (यदि हो)">
+                        </div>
+                        <div class="field-group">
+                            <label>पेमेंट विकल्प (Payment)</label>
+                            <select id="paymentMode" class="input-control">
+                                <option value="0% EMI (Bajaj Finance)">0% EMI (Bajaj Finance)</option>
+                                <option value="Cash (नकद)">नकद (Cash)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn-submit-coupon">
+                        🎟️ अपना कैश वाउचर कार्ड बनाएं ►
+                    </button>
+                </form>
+
+                <!-- STEP 3: PREMIUM CASH VALUE CARD (NO CUSTOMER DETAILS VISIBLE, QR CODE IN CORNER) -->
+                <div id="coupon-result-section" class="coupon-view-wrapper hidden">
+                    <div class="congrats-strip">
+                        <h3 id="congrats-title">🎉 बधाई हो! आपका ₹1,000 तक का कैश वाउचर कार्ड तैयार है!</h3>
+                        <p>यह कार्ड नकद रुपये समान है — इसे डाउनलोड करके अपने फोन में सुरक्षित रखें।</p>
+                    </div>
+
+                    <!-- DOWNLOADABLE PRIVILEGE CASH CARD -->
+                    <div id="digital-coupon-card">
+                        <div class="voucher-inner">
+                            <!-- Card Header -->
+                            <div class="voucher-top-row">
+                                <div class="voucher-brand-col">
+                                    <div class="v-brand">सावित्री इलेक्ट्रॉनिक्स</div>
+                                    <div class="v-sub">VIP कैश डिस्काउंट एवं लकी ड्रॉ कार्ड</div>
+                                </div>
+                                <div class="cash-seal-badge">₹1,000 तक नकद छूट</div>
+                            </div>
+
+                            <!-- Center: Cash Value Notes + Corner QR Code -->
+                            <div class="voucher-mid-grid">
+                                <div class="value-denominations">
+                                    <div class="money-note-box">
+                                        <div class="note-left">
+                                            <span class="note-amount">₹500 की सीधी छूट</span>
+                                            <span class="note-cond">₹10,000+ की किसी भी खरीदारी पर</span>
+                                        </div>
+                                        <span class="note-tag">CASH OFF</span>
+                                    </div>
+
+                                    <div class="money-note-box">
+                                        <div class="note-left">
+                                            <span class="note-amount">₹1,000 की सीधी छूट</span>
+                                            <span class="note-cond">₹20,000+ की किसी भी खरीदारी पर</span>
+                                        </div>
+                                        <span class="note-tag">CASH OFF</span>
+                                    </div>
+                                </div>
+
+                                <!-- Corner QR Code -->
+                                <div class="qr-corner-box">
+                                    <canvas id="qr-canvas"></canvas>
+                                    <div class="qr-caption">SCAN AT STORE</div>
+                                </div>
+                            </div>
+
+                            <!-- Lucky Draw & Bajaj EMI Strip -->
+                            <div class="lucky-perk-strip">
+                                ★ <strong>FREE LUCKY DRAW (हर महीने की 1 तारीख):</strong> Smartwatch • Mixer • Iron • Soundbar<br>
+                                ★ <strong>0% ब्याज EMI:</strong> सिर्फ आधार व पैन कार्ड पर सामान घर ले जाएं (Bajaj Finserv)
+                            </div>
+
+                            <!-- Serial Number & 90 Days Validity Strip -->
+                            <div class="serial-validity-bar">
+                                <div class="serial-num-block">
+                                    <span class="s-lbl">कूपन क्रम संख्या (Card No.)</span>
+                                    <span id="cp-serial" class="s-val">SE-2026/00000</span>
+                                </div>
+                                <div class="validity-dates-block">
+                                    <span class="validity-pill-90">90 DAYS VALID</span>
+                                    <div>जारी: <strong id="cp-issue-date">--/--/2026</strong></div>
+                                    <div>वैधता: <strong id="cp-expiry-date" style="color:#fde047;">--/--/2026</strong> तक</div>
+                                </div>
+                            </div>
+
+                            <!-- Store Address Footer inside Card -->
+                            <div class="voucher-footer">
+                                <div class="v-store-addr">पता: सावित्री इलेक्ट्रॉनिक्स, रुद्रपुर, गोला वार्ड, मूर्ति नं. 1 के सामने</div>
+                                <div class="v-store-phone">संपर्क: 95692 42717, 7080935352</div>
+                                <div class="v-important-note">⚠️ खरीदारी के समय दुकान पर यह QR कार्ड दिखाने पर तुरंत डिस्काउंट लागू होगा।</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="coupon-actions">
+                        <button type="button" id="download-coupon-btn" class="btn-download">
+                            📥 कैश कार्ड डाउनलोड करें (Save to Phone)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-purchase-slogan">
+            कोई खरीदारी ज़रूरी नहीं! | बस आएं और मुफ्त कूपन ले जाएं!
+        </div>
+    </div>
+
+    <!-- Bottom Bajaj Finserv & Store Footer -->
+    <div style="width:100%; display:flex; flex-direction:column; align-items:center; padding: 0 14px 16px;">
+        <div class="bajaj-bottom-banner">
+            <div class="bajaj-bottom-flex">
+                <div class="bajaj-logo-badge">
+                    <span class="bajaj-circle">B</span>
+                    <span>BAJAJ<br>FINSERV</span>
+                </div>
+                <div class="bajaj-bottom-text">
+                    यहाँ बजाज फाइनेंस (Bajaj Finance) की आसान सुविधा भी उपलब्ध है!
+                </div>
+            </div>
+            <div class="emi-highlight">
+                0% ब्याज & आसान EMI पर कोई भी सामान ले जाएं!
+            </div>
+        </div>
+
+        <div class="store-footer">
+            <div class="addr">पता: रुद्रपुर, गोला वार्ड, मूर्ति नं. 1 के सामने</div>
+            <div class="phone">संपर्क: 95692 42717, 7080935352</div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK & Logic (Saves secretly to "platinum_customers") -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtciCWT5tW7Tx4wVll0BUoEZX0yH2M59s",
+            authDomain: "lucky-draw-form.firebaseapp.com",
+            projectId: "lucky-draw-form",
+            storageBucket: "lucky-draw-form.firebasestorage.app",
+            messagingSenderId: "223399876928",
+            appId: "1:223399876928:web:7b8be629df1f07503542a5",
+            measurementId: "G-ZL7K87SMK4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        try { getAnalytics(app); } catch (e) {}
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const loginSection = document.getElementById('login-section');
+        const authContentSection = document.getElementById('auth-content-section');
+        const googleLoginBtn = document.getElementById('google-login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userEmailDisplay = document.getElementById('user-email-display');
+        const statusMessage = document.getElementById('status-message');
+        const luckyDrawForm = document.getElementById('lucky-draw-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const couponResultSection = document.getElementById('coupon-result-section');
+        const downloadCouponBtn = document.getElementById('download-coupon-btn');
+        const congratsTitle = document.getElementById('congrats-title');
+
+        let currentUser = null;
+
+        function triggerCelebration() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 55,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#fde047', '#f59e0b', '#dc2626', '#16a34a']
+                });
+            }
+        }
+
+        function formatDateDDMMYYYY(dateObj) {
+            const d = String(dateObj.getDate()).padStart(2, '0');
+            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const y = dateObj.getFullYear();
+            return `${d}/${m}/${y}`;
+        }
+
+        function generateCouponSerial() {
+            const year = new Date().getFullYear();
+            const randPart = Math.floor(10000 + Math.random() * 90000);
+            return `SE-${year}/${randPart}`;
+        }
+
+        function generateQRCodeOnCanvas(data) {
+            const itemsList = (Array.isArray(data.itemsNeeded) && data.itemsNeeded.length > 0)
+                ? data.itemsNeeded.join(', ')
+                : 'Electronics';
+
+            const qrText = [
+                `SAVITRI ELECTRONICS RUDRAPUR`,
+                `SR_NO: ${data.couponNo || ''}`,
+                `ISSUED: ${data.formattedDate || ''}`,
+                `VALID_TILL: ${data.expiryDate || ''} (90 DAYS)`,
+                `NAME: ${data.fullName || ''}`,
+                `MOB: ${data.mobileNumber || ''}`,
+                `ADDR: ${data.address || ''}`,
+                `ITEMS: ${itemsList}`,
+                `PAY: ${data.paymentMode || ''}`,
+                `EVENT: ${data.occasionDate || 'N/A'}`,
+                `OFFER: Rs500 OFF(10k+) | Rs1000 OFF(20k+)`
+            ].join('\n');
+
+            const canvasEl = document.getElementById('qr-canvas');
+            if (typeof QRious !== 'undefined' && canvasEl) {
+                new QRious({
+                    element: canvasEl,
+                    value: qrText,
+                    size: 220,
+                    level: 'M',
+                    background: '#ffffff',
+                    foreground: '#111827',
+                    padding: 6
+                });
+            }
+        }
+
+        function renderDigitalCoupon(data, isExisting = false) {
+            const subDate = data.createdAt
+                ? data.createdAt.toDate()
+                : (data.clientTimestamp ? new Date(data.clientTimestamp) : new Date());
+
+            const issueStr = data.formattedDate || formatDateDDMMYYYY(subDate);
+            let expiryStr = data.expiryDate;
+            if (!expiryStr) {
+                const expDate = new Date(subDate.getTime() + 90 * 24 * 60 * 60 * 1000);
+                expiryStr = formatDateDDMMYYYY(expDate);
+            }
+
+            document.getElementById('cp-serial').textContent = data.couponNo || 'SE-2026/10001';
+            document.getElementById('cp-issue-date').textContent = issueStr;
+            document.getElementById('cp-expiry-date').textContent = expiryStr;
+
+            generateQRCodeOnCanvas({
+                ...data,
+                formattedDate: issueStr,
+                expiryDate: expiryStr
+            });
+
+            if (isExisting) {
+                congratsTitle.textContent = "💳 आपका एक्टिव कैश डिस्काउंट एवं लकी ड्रॉ कार्ड";
+            } else {
+                congratsTitle.textContent = "🎉 बधाई हो! आपका ₹1,000 तक का कैश वाउचर कार्ड तैयार है!";
+            }
+
+            luckyDrawForm.classList.add('hidden');
+            couponResultSection.classList.remove('hidden');
+        }
+
+        googleLoginBtn.addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                console.error("Login Error:", error);
+                alert("Google Login में समस्या आई: " + error.message);
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            signOut(auth);
+        });
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                userEmailDisplay.textContent = user.email;
+                loginSection.classList.add('hidden');
+                authContentSection.classList.remove('hidden');
+                if (user.displayName && !document.getElementById('fullName').value) {
+                    document.getElementById('fullName').value = user.displayName;
+                }
+                await checkExistingSubmission(user.email);
+            } else {
+                currentUser = null;
+                loginSection.classList.remove('hidden');
+                authContentSection.classList.add('hidden');
+                luckyDrawForm.reset();
+                couponResultSection.classList.add('hidden');
+                statusMessage.classList.add('hidden');
+            }
+        });
+
+        // 30-Day Form Lock Check inside "platinum_customers"
+        async function checkExistingSubmission(email) {
+            statusMessage.className = "status-alert status-info";
+            statusMessage.textContent = "⏳ आपके कार्ड की जांच की जा रही है...";
+            statusMessage.classList.remove('hidden');
+            luckyDrawForm.classList.add('hidden');
+            couponResultSection.classList.add('hidden');
+
+            try {
+                const q = query(collection(db, "platinum_customers"), where("email", "==", email));
+                const querySnapshot = await getDocs(q);
+
+                let recentEntry = null;
+                const now = new Date();
+
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const subDate = data.createdAt ? data.createdAt.toDate() : (data.clientTimestamp ? new Date(data.clientTimestamp) : null);
+                    if (subDate) {
+                        const diffDays = (now - subDate) / (1000 * 60 * 60 * 24);
+                        if (diffDays < 30) {
+                            recentEntry = data;
+                        }
+                    }
+                });
+
+                if (recentEntry) {
+                    statusMessage.className = "status-alert status-warn";
+                    statusMessage.innerHTML = `✅ आपका कूपन कार्ड पहले ही बन चुका है और <strong>90 दिनों तक मान्य</strong> है। नीचे अपना कार्ड डाउनलोड करें:`;
+                    renderDigitalCoupon(recentEntry, true);
+                } else {
+                    statusMessage.classList.add('hidden');
+                    luckyDrawForm.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error("Error checking status:", error);
+                statusMessage.classList.add('hidden');
+                luckyDrawForm.classList.remove('hidden');
+            }
+        }
+
+        // Form Submission -> Saves to "platinum_customers" collection with category: "Platinum Customer"
+        luckyDrawForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser) return;
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const mobileNumber = document.getElementById('mobileNumber').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const occasionDate = document.getElementById('occasionDate').value.trim();
+            const paymentMode = document.getElementById('paymentMode').value;
+
+            const checkedBoxes = document.querySelectorAll('input[name="itemsNeeded"]:checked');
+            const itemsNeeded = Array.from(checkedBoxes).map(cb => cb.value);
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "⏳ कार्ड जनरेट हो रहा है...";
+
+            try {
+                const q = query(collection(db, "platinum_customers"), where("email", "==", currentUser.email));
+                const querySnapshot = await getDocs(q);
+                const now = new Date();
+                let alreadyExists = null;
+
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const subDate = data.createdAt ? data.createdAt.toDate() : (data.clientTimestamp ? new Date(data.clientTimestamp) : null);
+                    if (subDate && ((now - subDate) / (1000 * 60 * 60 * 24)) < 30) {
+                        alreadyExists = data;
+                    }
+                });
+
+                if (alreadyExists) {
+                    renderDigitalCoupon(alreadyExists, true);
+                    return;
+                }
+
+                const couponNo = generateCouponSerial();
+                const formattedDate = formatDateDDMMYYYY(now);
+                const expiryDateObj = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
+                const expiryDate = formatDateDDMMYYYY(expiryDateObj);
+
+                const entryData = {
+                    couponNo: couponNo,
+                    email: currentUser.email,
+                    fullName: fullName,
+                    mobileNumber: mobileNumber,
+                    address: address,
+                    itemsNeeded: itemsNeeded,
+                    occasionDate: occasionDate,
+                    paymentMode: paymentMode,
+                    discount10k: "₹500 OFF on ₹10,000+",
+                    discount20k: "₹1,000 OFF on ₹20,000+",
+                    validDays: 90,
+                    formattedDate: formattedDate,
+                    expiryDate: expiryDate,
+                    status: "ACTIVE",
+                    category: "Platinum Customer",
+                    clientTimestamp: now.toISOString(),
+                    createdAt: serverTimestamp()
+                };
+
+                await addDoc(collection(db, "platinum_customers"), entryData);
+
+                statusMessage.classList.add('hidden');
+                renderDigitalCoupon(entryData, false);
+                triggerCelebration();
+
+            } catch (error) {
+                console.error("Submission Error:", error);
+                alert("कार्ड बनाने में समस्या आई: " + error.message);
+                submitBtn.disabled = false;
+                submitBtn.textContent = "🎟️ अपना कैश वाउचर कार्ड बनाएं ►";
+            }
+        });
+
+        downloadCouponBtn.addEventListener('click', async () => {
+            const couponCard = document.getElementById('digital-coupon-card');
+            const serialText = document.getElementById('cp-serial').textContent.replace('/', '-');
+            const originalText = downloadCouponBtn.innerHTML;
+
+            try {
+                downloadCouponBtn.innerHTML = "⏳ कार्ड सेव हो रहा है...";
+                downloadCouponBtn.disabled = true;
+
+                const canvas = await html2canvas(couponCard, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: null,
+                    logging: false
+                });
+
+                const link = document.createElement('a');
+                link.download = `Savitri-Electronics-Cash-Card-${serialText}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+
+                downloadCouponBtn.innerHTML = "✅ कैश कार्ड डाउनलोड हो गया!";
+                setTimeout(() => {
+                    downloadCouponBtn.innerHTML = originalText;
+                    downloadCouponBtn.disabled = false;
+                }, 2200);
+            } catch (err) {
+                console.error("Download failed:", err);
+                alert("डाउनलोड में समस्या आई, कृपया कार्ड का स्क्रीनशॉट ले लें।");
+                downloadCouponBtn.innerHTML = originalText;
+                downloadCouponBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
